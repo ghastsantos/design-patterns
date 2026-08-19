@@ -8,9 +8,9 @@ public class UsersTableData implements TableData {
   private static final List<String> HEADERS =
       List.of(
           "Identificador",
-          "Nome completo do usuario",
-          "Endereco de email do usuario",
-          "CPF do usuario");
+          "Nome completo do usu\u00e1rio",
+          "Endere\u00e7o de e-mail do usu\u00e1rio",
+          "CPF do usu\u00e1rio");
 
   private final List<User> users;
   private final boolean maskCpf;
@@ -45,7 +45,7 @@ public class UsersTableData implements TableData {
 
   private String formatCpf(String cpf) {
     if (cpf == null || cpf.length() != 11) {
-      return "CPF INVALIDO";
+      return "CPF INV\u00c1LIDO";
     }
     if (maskCpf) {
       return "***." + cpf.substring(3, 6) + "." + cpf.substring(6, 9) + "-**";
@@ -60,12 +60,12 @@ public class UsersTableData implements TableData {
   }
 
   private static String validateAndFormatEmail(String email) {
-    return email == null || !email.contains("@") ? "INVALIDO" : email;
+    return email == null || !email.contains("@") ? "INV\u00c1LIDO" : email;
   }
 
   private static String formatName(String name) {
     if (name == null || name.isEmpty()) {
-      return "NAO INFORMADO";
+      return "N\u00c3O INFORMADO";
     }
     return name;
   }

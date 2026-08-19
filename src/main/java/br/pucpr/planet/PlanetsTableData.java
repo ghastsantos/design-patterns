@@ -9,9 +9,9 @@ public class PlanetsTableData implements TableData {
   private static final List<String> HEADERS =
       List.of(
           "Nome do planeta",
-          "Diametro km",
-          "Distancia sol km",
-          "Distancia sol ua",
+          "Di\u00e2metro km",
+          "Dist\u00e2ncia do Sol em km",
+          "Dist\u00e2ncia do Sol em ua",
           "Tipo do planeta");
 
   private final List<Planet> planets;
@@ -47,20 +47,20 @@ public class PlanetsTableData implements TableData {
 
   private static String formatName(String name) {
     if (name == null || name.isEmpty()) {
-      return "NAO INFORMADO";
+      return "N\u00c3O INFORMADO";
     }
     return name;
   }
 
   private static String formatType(PlanetType type) {
     if (type == null) {
-      return "NAO INFORMADO";
+      return "N\u00c3O INFORMADO";
     }
     return switch (type) {
       case ROCK -> "Rochoso";
       case GAS -> "Gasoso";
       case ICE -> "Gelado";
-      case DWARF -> "Anao";
+      case DWARF -> "An\u00e3o";
     };
   }
 }
