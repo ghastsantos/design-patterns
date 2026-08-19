@@ -1,4 +1,4 @@
-package br.pucpr.user;
+package br.pucpr.table;
 
 public enum Theme {
   LIGHT("-"),
@@ -7,8 +7,8 @@ public enum Theme {
 
   private final String borderChar;
 
-  Theme(String BorderChar) {
-    this.borderChar = BorderChar;
+  Theme(String borderChar) {
+    this.borderChar = borderChar;
   }
 
   public String getBorderChar() {

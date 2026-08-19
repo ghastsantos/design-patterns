@@ -1,5 +1,13 @@
 package br.pucpr.table;
 
+import java.util.List;
+
 public interface TableData {
-  // Monte aqui sua interface TableData
+  List<String> getHeaders();
+
+  List<List<String>> getRows();
+
+  default boolean isRightAligned(int columnIndex) {
+    return false;
+  }
 }
