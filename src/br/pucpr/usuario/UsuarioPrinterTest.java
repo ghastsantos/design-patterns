@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class UsuarioPrinterTest {
     public static void main(String[] args) {
         rendersTheSameTableSectionsAsTheOriginalImplementation();
+        formatsInvalidValuesWithAccents();
         printsEmptyListError();
         System.out.println("UsuarioPrinterTest OK");
     }
@@ -36,6 +37,21 @@ public class UsuarioPrinterTest {
         assertEquals(expected, capturePrint(() -> new UsuarioPrinter().print(usuarios, true, true, "LIGHT")));
     }
 
+
+    private static void formatsInvalidValuesWithAccents() {
+        var usuarios = new ArrayList<Usuario>();
+        usuarios.add(new Usuario(105L, "Lucas Mendes", "lucas.email.com", "12345"));
+
+        var nl = "\n";
+        var expected =
+                "--------------------------------------------------------------------------" + nl
+                + "| ID    | NOME                 | EMAIL                  | CPF            |" + nl
+                + "--------------------------------------------------------------------------" + nl
+                + "| 105   | Lucas Mendes         | INV\u00c1LIDO               | CPF INV\u00c1LIDO   |" + nl
+                + "--------------------------------------------------------------------------" + nl;
+
+        assertEquals(expected, capturePrint(() -> new UsuarioPrinter().print(usuarios, true, false, "LIGHT")));
+    }
     private static void printsEmptyListError() {
         var expected = "ERRO: Lista de usu\u00e1rios vazia ou nula." + System.lineSeparator();
 

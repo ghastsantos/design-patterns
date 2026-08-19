@@ -37,33 +37,33 @@ java UsuarioPrinter
 
 ---
 
-## Solucao Implementada
+## Solução implementada
 
-### Analise critica
+### Análise crítica
 
-O metodo `print` concentrava varias responsabilidades ao mesmo tempo: validacao da lista, selecao de tema, formatacao de campos, mascaramento de CPF, montagem da tabela e escrita no console. Esse acoplamento dificultava a leitura, tornava o metodo grande e deixava regras de negocio misturadas com detalhes de apresentacao.
+O método `print` concentrava várias responsabilidades ao mesmo tempo: validação da lista, seleção de tema, formatação de campos, mascaramento de CPF, montagem da tabela e escrita no console. Esse acoplamento dificultava a leitura, tornava o método grande e deixava regras de negócio misturadas com detalhes de apresentação.
 
 ### Code smells encontrados
 
-- **Long Method:** o metodo `print` fazia todo o fluxo da funcionalidade.
-- **Feature Envy / baixa coesao:** a classe manipulava diretamente detalhes de `Usuario`, CPF, email, tema e tabela.
-- **Magic Numbers e Magic Strings:** larguras, espacamento, nomes de temas e mensagens ficavam espalhados no codigo.
-- **Duplicacao conceitual:** regras de formatacao e renderizacao estavam embutidas no mesmo bloco, dificultando reaproveitamento.
-- **Baixa testabilidade:** a saida era escrita diretamente no console sem uma separacao clara das etapas de formatacao.
+- **Long Method:** o método `print` fazia todo o fluxo da funcionalidade.
+- **Feature Envy / baixa coesão:** a classe manipulava diretamente detalhes de `Usuario`, CPF, e-mail, tema e tabela.
+- **Magic Numbers e Magic Strings:** larguras, espaçamento, nomes de temas e mensagens ficavam espalhados no código.
+- **Duplicação conceitual:** regras de formatação e renderização estavam embutidas no mesmo bloco, dificultando o reaproveitamento.
+- **Baixa testabilidade:** a saída era escrita diretamente no console, sem uma separação clara das etapas de formatação.
 
-### Principios violados
+### Princípios violados
 
-- **SRP (Single Responsibility Principle):** uma unica classe/metodo tinha motivos demais para mudar.
-- **Open/Closed Principle:** adicionar novos temas ou regras de formatacao exigia alterar o fluxo principal.
-- **Clean Code:** nomes intermediarios pouco expressivos e blocos longos dificultavam manutencao.
+- **SRP (Single Responsibility Principle):** uma única classe/método tinha motivos demais para mudar.
+- **Open/Closed Principle:** adicionar novos temas ou regras de formatação exigia alterar o fluxo principal.
+- **Clean Code:** nomes intermediários pouco expressivos e blocos longos dificultavam a manutenção.
 
-### Refatoracao aplicada
+### Refatoração aplicada
 
-A solucao preserva a API publica de `UsuarioPrinter.print(...)` e separa o fluxo em componentes internos menores:
+A solução preserva a API pública de `UsuarioPrinter.print(...)` e separa o fluxo em componentes internos menores:
 
 - `BorderStyle`: resolve o tema e gera a borda.
-- `UsuarioFormatter`: centraliza formatacao de id, nome, email e CPF.
-- `UsuarioRow`: representa uma linha ja formatada.
+- `UsuarioFormatter`: centraliza a formatação de ID, nome, e-mail e CPF.
+- `UsuarioRow`: representa uma linha já formatada.
 - `UsuarioTable`: monta a tabela no formato original.
 
-Tambem foi adicionado `UsuarioPrinterTest`, um teste simples sem dependencias externas, que captura a saida do console e garante que a refatoracao preserva a renderizacao esperada.
+Também foi adicionado `UsuarioPrinterTest`, um teste simples sem dependências externas, que captura a saída do console e garante que a refatoração preserve a renderização esperada.
