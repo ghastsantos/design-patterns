@@ -1,5 +1,6 @@
 package br.pucpr.table;
 
+import br.pucpr.table.model.PaginatedTableData;
 import br.pucpr.table.model.TableData;
 import java.util.Collection;
 
@@ -11,6 +12,8 @@ public class TableBuilder {
   private TableData data;
   private Theme theme = Theme.NORMAL;
   private boolean alignRight = false;
+  private Integer page;
+  private Integer pageSize;
 
   public TableBuilder withTheme(Theme theme) {
     this.theme = theme;
@@ -30,6 +33,12 @@ public class TableBuilder {
     return this;
   }
 
+  public TableBuilder page(int page, int pageSize) {
+    this.page = page;
+    this.pageSize = pageSize;
+    return this;
+  }
+
   public Table withData(TableData data) {
     this.data = data;
     return build();
@@ -45,6 +54,10 @@ public class TableBuilder {
     if (this.data == null) {
       throw new IllegalStateException("Call a data setting method first!");
     }
-    return new Table(data, theme, alignRight);
+    var tableData = data;
+    if (page != null && pageSize != null) {
+      tableData = new PaginatedTableData(tableData, page, pageSize);
+    }
+    return new Table(tableData, theme, alignRight);
   }
 }
