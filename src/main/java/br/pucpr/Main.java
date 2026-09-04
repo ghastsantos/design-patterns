@@ -1,16 +1,13 @@
 package br.pucpr;
 
 import static br.pucpr.planet.PlanetType.*;
-import static br.pucpr.planet.PlanetType.DWARF;
-import static br.pucpr.planet.PlanetType.ICE;
-import static br.pucpr.table.Theme.LIGHT;
 
 import br.pucpr.planet.Planet;
 import br.pucpr.planet.PlanetaColumns;
 import br.pucpr.table.Table;
 import br.pucpr.table.TableBuilder;
 import br.pucpr.table.model.ColumnTableData;
-import br.pucpr.user.*;
+import br.pucpr.user.User;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
@@ -27,13 +24,12 @@ public class Main {
     usuarios.add(new User(105L, "Lucas Mendes", "lucas@email.com", "12345"));
     usuarios.add(new User(106L, "", "beatriz@email.com", "55566677788"));
 
-    System.out.println("IMPRIMINDO USUARIOS");
+    System.out.println("IMPRIMINDO USUÁRIOS");
     System.out.println("-------------------");
-    new Table(
-            new ColumnTableData<>(
-                usuarios, new IdColumn(), new CpfColumn(), new EmailColumn(), new NameColumn()),
-            LIGHT,
-            true)
+    new TableBuilder()
+        .light()
+        .rightAligned()
+        .withData(usuarios, columns -> columns.inspect(User.class))
         .print();
 
     final var planetas = new ArrayList<Planet>();

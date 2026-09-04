@@ -9,4 +9,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface Column {
   String header() default "";
+
+  int order() default 0;
 }
